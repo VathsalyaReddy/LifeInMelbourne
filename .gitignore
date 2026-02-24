@@ -1,0 +1,21 @@
+# Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# Python
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/.venv/
+backend/venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.suo
+*.user
