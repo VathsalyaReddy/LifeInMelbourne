@@ -1,0 +1,233 @@
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-tagline">A personal diary from Down Under</p>
+    <h1 class="hero-title">Life in Melbourne<br><span>as an Indian Girl</span></h1>
+    <p class="hero-subtitle">
+      Chai in hand, tram card in pocket — navigating a new city, a new culture,
+      and finding home 15,000 km away from where I grew up.
+    </p>
+    <a href="#explore" class="hero-cta">Explore Melbourne</a>
+  </div>
+  <div class="hero-scroll-hint">
+    <span>Scroll down</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<section class="tabs-section" id="explore">
+  <div class="container">
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+      @for (tab of tabs; track tab.id) {
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === tab.id"
+          (click)="setActiveTab(tab.id)">
+          {{ tab.label }}
+        </button>
+      }
+    </nav>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+
+      <!-- About Melbourne -->
+      @if (activeTab === 'about-melbourne') {
+        <div class="tab-pane">
+          <div class="intro-text">
+            <h2>From Mumbai (or Chennai, or Bangalore) to Melbourne</h2>
+            <p>
+              Moving to Melbourne as an Indian woman is an experience full of contrasts — the quiet of leafy suburbs
+              after the chaos of Indian cities, the politeness that sometimes feels distant, the freedom that takes
+              getting used to, and the small joys of finding a good masala chai in an unexpected café.
+            </p>
+            <p>
+              This space is about the real, unfiltered moments — the homesickness, the wins, the confusion, the
+              laughter, and everything in between.
+            </p>
+          </div>
+
+          <h3 class="section-subtitle">Life Here, One Chapter at a Time</h3>
+          <div class="cards-grid">
+            <div class="card">
+              <div class="card-icon">🍛</div>
+              <h4>Finding Desi Food</h4>
+              <p>From biryani in Dandenong to dosas in the CBD, Melbourne's Indian food scene is surprisingly rich. Harris Farm Markets and Indian grocery stores like Bharat Emporium keep the pantry stocked with everything from hing to jaggery.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon">🚃</div>
+              <h4>Navigating Public Transport</h4>
+              <p>The myki card, trams, trains, and buses — Melbourne's PT network is a lifeline. Once you master the zones and the free tram zone in the city, getting around becomes second nature.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon">🌦️</div>
+              <h4>Four Seasons in One Day</h4>
+              <p>Melburnians aren't joking about the weather. Packing a jacket, umbrella, and sunscreen in the same bag is standard practice. The city's unpredictable skies are part of its charm.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon">🎓</div>
+              <h4>Student & Work Life</h4>
+              <p>Whether studying at Melbourne Uni, RMIT, or working in tech, healthcare, or hospitality — balancing studies, casual work, and building a career here comes with its own journey and lessons.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon">🏡</div>
+              <h4>Finding a Home</h4>
+              <p>The rental market can be tough. From inspections to references and bond payments — finding a comfortable place in suburbs like Clayton, Glen Waverley, or Footscray is an adventure in itself.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon">🤝</div>
+              <h4>Building Community</h4>
+              <p>Joining cultural associations, attending Garba nights, Diwali events, and weekend cricket matches — the Indian community in Melbourne is vibrant, welcoming, and always evolving.</p>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Nearby Places to Visit -->
+      @if (activeTab === 'nearby-places') {
+        <div class="tab-pane">
+          <div class="intro-text">
+            <h2>Day Trips & Weekend Getaways</h2>
+            <p>Melbourne is perfectly positioned for exploring Victoria's incredible diversity — from mountain forests to coastal wonders, all within a short drive.</p>
+          </div>
+          <div class="cards-grid">
+            @for (place of nearbyPlaces; track place.name) {
+              <div class="card">
+                <div class="card-icon">{{ place.icon }}</div>
+                <h4>{{ place.name }}</h4>
+                <span class="badge">{{ place.distance }}</span>
+                <p>{{ place.description }}</p>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Best Restaurants -->
+      @if (activeTab === 'best-restaurants') {
+        <div class="tab-pane">
+          <div class="intro-text">
+            <h2>Melbourne's Best Eats</h2>
+            <p>Melbourne is Australia's food capital. From authentic Indian flavours to world-class modern dining, the city's restaurant scene never disappoints.</p>
+          </div>
+          <div class="cards-grid">
+            @for (restaurant of restaurants; track restaurant.name) {
+              <div class="card">
+                <div class="card-icon">{{ restaurant.icon }}</div>
+                <h4>{{ restaurant.name }}</h4>
+                <div class="card-meta">
+                  <span class="badge">{{ restaurant.suburb }}</span>
+                  <span class="badge badge-accent">{{ restaurant.cuisine }}</span>
+                </div>
+                <p>{{ restaurant.description }}</p>
+                <p class="best-item"><strong>Best item:</strong> {{ restaurant.bestItem }}</p>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Images -->
+      @if (activeTab === 'images') {
+        <div class="tab-pane">
+          <div class="intro-text">
+            <h2>Melbourne Through My Lens</h2>
+            <p>Moments and memories from life in this beautiful city — from iconic landmarks to everyday discoveries.</p>
+          </div>
+
+          <!-- Upload Button -->
+          <div class="upload-area">
+            <label for="imageUpload" class="upload-btn">
+              Upload Images
+              <input
+                id="imageUpload"
+                type="file"
+                accept="image/*"
+                multiple
+                (change)="onFilesSelected($event)"
+                hidden />
+            </label>
+            <p class="upload-hint">Select one or more images from your device</p>
+          </div>
+
+          <!-- Uploaded Images -->
+          @if (uploadedImages.length > 0) {
+            <h3 class="section-subtitle">My Photos</h3>
+            <div class="images-grid">
+              @for (image of uploadedImages; track image.url; let i = $index) {
+                <div class="image-card">
+                  <img [src]="image.url" [alt]="image.caption" class="uploaded-img" />
+                  <div class="image-footer">
+                    <p class="image-caption">{{ image.caption }}</p>
+                    <button class="remove-btn" (click)="removeUploadedImage(i)">Remove</button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Placeholder Gallery -->
+          <h3 class="section-subtitle">Coming Soon</h3>
+          <div class="images-grid">
+            @for (image of images; track image.alt) {
+              <div class="image-card">
+                <div class="image-placeholder">
+                  <span class="image-placeholder-icon">{{ image.placeholder }}</span>
+                </div>
+                <p class="image-caption">{{ image.caption }}</p>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- About -->
+      @if (activeTab === 'about') {
+        <div class="tab-pane">
+          <div class="about-content">
+            <div class="about-avatar">🙋‍♀️</div>
+            <h2>Hey, I'm the girl behind this blog</h2>
+            <p>
+              I moved to Melbourne chasing a dream — of better opportunities, broader horizons, and yes, maybe a little
+              adventure too. What I found was so much more: a city that challenges you, surprises you, and slowly, quietly,
+              wins you over.
+            </p>
+            <p>
+              This blog is my little corner of the internet where I share the highs and lows of life as an Indian woman
+              in Melbourne. From navigating the rental market to finding the perfect chai latte, from homesickness to
+              belonging — I write it all here.
+            </p>
+            <p>
+              If you're planning to move to Melbourne, already here and figuring things out, or just curious about what
+              life is like down under — welcome. Pull up a chair. Let's talk.
+            </p>
+            <div class="about-tags">
+              <span class="tag">Indian in Melbourne</span>
+              <span class="tag">Expat Life</span>
+              <span class="tag">Melbourne Foodie</span>
+              <span class="tag">Travel</span>
+              <span class="tag">Culture</span>
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="container">
+    <blockquote>
+      "You don't have to choose between who you were and who you're becoming.
+      Melbourne lets you be both."
+    </blockquote>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>Made with chai and courage &nbsp;|&nbsp; Life in Melbourne</p>
+  </div>
+</footer>
